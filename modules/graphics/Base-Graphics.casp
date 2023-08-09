@@ -87,6 +87,7 @@ def ANIM_Movement_Dashes_AirdashB str() = ANIM_Movement_Dashes_AirdashB
 ## Basic graphics setup variables
 
 #--- General
+def GRAPHICS_PositionZ int() = 0
 def GRAPHICS_Scale int() = 1000
 
 #--- Models
@@ -500,6 +501,7 @@ Call(Init-Main-Graphics)
 :Init-Main-Graphics:
 ## Helper that creates the model or sprites on entity instanciation.
 _Category(Graphics)
+_Overridable(If you want to setup graphics manually)
 
 VGRAPHICS_UseSprites:
 	Call(Init-Main-Graphics-Sprites)
@@ -507,6 +509,7 @@ else
 	Call(Init-Main-Graphics-Model)
 endif
 
+ModelPositionZ(GRAPHICS_PositionZ)
 ModelScale(GRAPHICS_Scale)
 :Init-Main-Graphics-Model:
 ## Graphics helper to initialize a model

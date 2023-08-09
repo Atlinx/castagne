@@ -18,6 +18,12 @@ Model functions affect the whole graphics side, so even sprites are affected her
 		"Flags":["Intermediate"],
 		"Types":["str", "str"],
 	})
+	RegisterFunction("ModelPositionZ", [1], null, {
+		"Description": "Changes the model's z position. Normally used to avoid z-fighting.",
+		"Arguments":["The position of the model along the z-axis."],
+		"Flags":["Intermediate"],
+		"Types":["int"],
+	})
 	RegisterFunction("ModelScale", [1], null, {
 		"Description": "Changes the model's scale uniformly.",
 		"Arguments":["The scale in permil."],
@@ -51,6 +57,7 @@ Model functions affect the whole graphics side, so even sprites are affected her
 	
 	RegisterVariableEntity("_ModelPositionX", 0)
 	RegisterVariableEntity("_ModelPositionY", 0)
+	RegisterVariableEntity("_ModelPositionZ", 0)
 	RegisterVariableEntity("_ModelRotation", 0)
 	RegisterVariableEntity("_ModelScale", 1000)
 	#RegisterVariableEntity("_ModelFacing", 1)
@@ -217,7 +224,7 @@ func UpdateGraphics(stateHandle):
 	
 	for eid in stateHandle.GlobalGet("_ActiveEntities"):
 		stateHandle.PointToEntity(eid)
-		var modelPosition = [stateHandle.EntityGet("_ModelPositionX"), stateHandle.EntityGet("_ModelPositionY"), 0]
+		var modelPosition = [stateHandle.EntityGet("_ModelPositionX"), stateHandle.EntityGet("_ModelPositionY"), stateHandle.EntityGet("_ModelPositionZ")]
 		var modelRotation = stateHandle.EntityGet("_ModelRotation")
 		var modelScale = stateHandle.EntityGet("_ModelScale")
 		#var camPosHor = Vector3(cameraPos.x, modelPosition.y, cameraPos.z)
@@ -290,6 +297,8 @@ func CreateModel(args, stateHandle):
 	engine.InstanceModel(stateHandle.EntityGet("_EID"), ArgStr(args, stateHandle, 0), animPath) # TODO Needs a new system here I think
 func ModelScale(args, stateHandle):
 	stateHandle.EntitySet("_ModelScale", ArgInt(args, stateHandle, 0))
+func ModelPositionZ(args, stateHandle):
+	stateHandle.EntitySet("_ModelPositionZ", ArgInt(args, stateHandle, 0))
 func ModelRotation(args, stateHandle):
 	stateHandle.EntitySet("_ModelRotation", ArgInt(args, stateHandle, 0))
 func ModelMove(args, stateHandle):

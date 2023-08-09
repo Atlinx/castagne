@@ -222,6 +222,10 @@ This can be overriden by other modules (mainly, FlowFighting which will target t
 		"Description":"Hold the current target EID, reset each frame.",
 		"Flags":["Advanced"],
 		})
+	RegisterVariableEntity("_Player", 0, null, {
+		"Description": "ID of the player controlling this entity.",
+		"Flags":["Advanced"]
+	})
 	
 	
 	

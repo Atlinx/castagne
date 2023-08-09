@@ -87,6 +87,7 @@ def ANIM_Movement_Dashes_AirdashB str() = ANIM_Movement_Dashes_AirdashB
 ## Basic graphics setup variables
 
 #--- General
+def GRAPHICS_PlayerPositionZOffset int() = 0
 def GRAPHICS_PositionZ int() = 0
 def GRAPHICS_Scale int() = 1000
 
@@ -104,6 +105,10 @@ def GRAPHICS_Spritesheet_NbY int() = 1
 def GRAPHICS_Spritesheet_OriginX int() = 0
 def GRAPHICS_Spritesheet_OriginY int() = 0
 def GRAPHICS_Spritesheet_3DPixelsize int() = 100000
+
+#--- internal
+internal _Player
+var PositionZ int() = 0
 :AnimAirTechBackward:
 _Overridable(If you wish to use a custom animation instead of the standard system.)
 
@@ -510,6 +515,12 @@ else
 endif
 
 ModelPositionZ(GRAPHICS_PositionZ)
+
+VGRAPHICS_PlayerPositionZOffset>=0:
+	Set(PositionZ, _Player)
+	Mul(PositionZ, GRAPHICS_PlayerPositionZOffset)
+	ModelPositionZ(PositionZ)
+endif
 ModelScale(GRAPHICS_Scale)
 :Init-Main-Graphics-Model:
 ## Graphics helper to initialize a model
